@@ -24,6 +24,8 @@ module.exports = {
   rules: {
     "semi": [2, "never"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": ["error", "windows"]
+    "linebreak-style": ["error", "windows"],
+    "import/prefer-default-export": "off",
+    "react/prop-types": 0
   },
 };

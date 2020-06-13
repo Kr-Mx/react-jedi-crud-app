@@ -1,11 +1,11 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { PagesRouter } from './pages/index'
+import { Navbar } from './components/Navbar'
 
-function App() {
-  return (
-    <div className="App">
-      Forte Frontend Jedi Course
-    </div>
-  )
-}
-
-export default App
+export const App = () => (
+  <Router>
+    <Navbar />
+    <PagesRouter />
+  </Router>
+)
