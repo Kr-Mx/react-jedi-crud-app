@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     '&:hover': {
       color: theme.palette.secondary.dark,
+      backgroundColor: 'transparent',
     },
   },
   icon: {
