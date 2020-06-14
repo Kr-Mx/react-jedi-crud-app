@@ -2,22 +2,15 @@ import React, { useState } from 'react'
 import { PageTable } from '../components/common/Table'
 import { PageHeader } from '../components/common/PageHeader'
 import { PageForm } from '../components/common/PageForm'
+import { getInitialData } from '../helpers'
 
-export const MainPage = ({ pageData }) => {
+export const MainPage = ({ pageData, initialState }) => {
   const { name: sectionName, columns } = pageData
-  const [tableData, setTableData] = useState({ people: [], starships: [], planets: [] })
+  const [tableData, setTableData] = useState(initialState)
   const currentState = tableData[sectionName]
-
   const deleteRow = (id) => {
     setTableData({ ...tableData, [sectionName]: currentState.filter((data) => data.id !== id) })
   }
-
-  const getInitialData = () => (
-    columns.reduce((cols, columnName) => {
-      cols[columnName] = ''
-      return cols
-    }, {})
-  )
 
   const handleItemData = (item) => {
     const data = [...currentState, item]
@@ -30,7 +23,7 @@ export const MainPage = ({ pageData }) => {
         <PageForm
           handleItemData={handleItemData}
           sectionName={sectionName}
-          initialData={getInitialData()}
+          initialData={getInitialData(columns)}
         />
       </PageHeader>
       <PageTable
