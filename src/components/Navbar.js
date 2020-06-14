@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, List } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
-import { linksData } from '../constants'
+import { pageData } from '../constants'
 import { NavbarLink } from './common/NavbarLink'
 
 const useStyles = makeStyles({
@@ -13,9 +13,10 @@ const useStyles = makeStyles({
 
 export const Navbar = () => {
   const classes = useStyles()
-  const links = linksData.map((linkData) => (
+  const links = pageData.map((linkData) => (
     <NavbarLink key={linkData.name} linkName={linkData.name} linkIcon={linkData.icon} />
   ))
+
   return (
     <AppBar position="static">
       <Toolbar>
