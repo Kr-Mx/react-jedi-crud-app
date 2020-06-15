@@ -1,7 +1,7 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { AppBar, List } from '@material-ui/core'
-import Toolbar from '@material-ui/core/Toolbar'
+import {
+  AppBar, List, Toolbar, makeStyles,
+} from '@material-ui/core'
 import { NavbarLink } from './common/NavbarLink'
 
 const useStyles = makeStyles({
