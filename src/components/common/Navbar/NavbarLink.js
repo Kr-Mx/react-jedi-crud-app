@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   ListItemIcon, ListItem, SvgIcon, ListItemText, makeStyles,
 } from '@material-ui/core'
-import { capitalize } from '../../helpers'
+import { capitalize } from '../../../helpers'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.dark,
       backgroundColor: 'transparent',
     },
+    width: 'max-content',
   },
   icon: {
     minWidth: '32px',
