@@ -1,7 +1,9 @@
 import React from 'react'
 import {
-  Typography, Container, makeStyles,
+  Typography, Container, makeStyles, Button,
 } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import shortId from 'shortid'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -12,29 +14,26 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   button: {
-    marginTop: theme.spacing(3),
-    width: 'fit-content',
+    marginTop: theme.spacing(2),
   },
 }))
 
-export const PageHeader = ({ sectionName, isEmpty, children }) => {
+export const Header = ({ sectionName }) => {
   const classes = useStyles()
   return (
     <Container className={classes.wrapper}>
       <Typography align="center" variant="h5">
         {`${sectionName} from star wars universe`.toUpperCase()}
       </Typography>
-      {children}
-      {isEmpty
-      && (
-        <Typography
-          align="center"
-          variant="overline"
-          className={classes.button}
-        >
-          {`There is no data for ${sectionName}`}
-        </Typography>
-      )}
+      <Button
+        className={classes.button}
+        color="primary"
+        variant="outlined"
+        component={Link}
+        to={`${sectionName}/${shortId.generate()}`}
+      >
+        add new item
+      </Button>
     </Container>
   )
 }
