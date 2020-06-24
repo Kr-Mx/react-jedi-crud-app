@@ -1,16 +1,8 @@
-import React, { useState } from 'react'
-import { getDataFromLocalStorage } from '../../helpers'
+import React from 'react'
+import { connect } from 'react-redux'
 import { Page } from '../common/Page'
-import { useSectionName } from '../../helpers/hooks'
+import { mapStateToProps, mapDispatchToProps } from '../../helpers/containerHelpers'
 
-export const Planets = () => {
-  const sectionName = useSectionName()
-  const [planets, setPlanets] = useState(getDataFromLocalStorage(sectionName))
-  return (
-    <Page
-      sectionName={sectionName}
-      state={planets}
-      setState={setPlanets}
-    />
-  )
-}
+const Planets = (props) => (<Page pageData={props} />)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Planets)

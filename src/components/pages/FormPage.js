@@ -6,9 +6,9 @@ import { Form } from '../common/Form'
 
 export const FormPage = (props) => {
   const { id } = useParams()
-
   const {
-    handleSubmitData,
+    updateRow,
+    insertRow,
     sectionName,
     isEditMode,
     findRow,
@@ -17,7 +17,7 @@ export const FormPage = (props) => {
 
   const initialData = (isEditMode)
     ? findRow(id)
-    : getInitialData(columns.map((column) => (column.name)))
+    : getInitialData(columns.map(({ name }) => name))
 
   const [formData, setFormData] = useState(initialData)
 
@@ -39,7 +39,8 @@ export const FormPage = (props) => {
     data.created = (!isEditMode) ? moment().format('DD.MM.YYYY hh:mm') : formData.created
     data.edited = (isEditMode) ? moment().format('DD.MM.YYYY hh:mm') : 'N/A'
     data.id = id
-    if (isEditMode) { handleSubmitData(data, id) } else handleSubmitData(data)
+    if (!isEditMode) { data.beloved = false }
+    if (isEditMode) { updateRow(id, data) } else insertRow(data)
     goBack()
   }
 

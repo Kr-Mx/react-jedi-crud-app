@@ -37,24 +37,34 @@ export const Table = (props) => {
   const {
     tableData,
     deleteRow,
+    updateRow,
     sectionName,
     setEditMode,
   } = props
   const classes = useStyles()
-  useEffect(() => { setEditMode(false) }, [setEditMode])
+
+  const headings = (tableData.length)
+    ? Object.keys(tableData[0]).filter((heading) => (heading !== 'beloved'))
+    : null
+
+  useEffect(() => { setEditMode(false) })
   return (
     <>
       {(tableData.length)
         ? (
           <TableContainer component={Paper} className={classes.wrapper}>
             <MaterialTable className={classes.table}>
-              <TableHead headings={Object.keys(tableData[0])} classes={classes} />
+              <TableHead
+                headings={headings}
+                classes={classes}
+              />
               <TableBody
                 tableData={tableData}
                 classes={classes}
                 sectionName={sectionName}
                 deleteRow={deleteRow}
                 setEditMode={setEditMode}
+                updateRow={updateRow}
               />
             </MaterialTable>
           </TableContainer>

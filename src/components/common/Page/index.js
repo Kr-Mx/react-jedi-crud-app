@@ -2,29 +2,33 @@ import React, { useEffect, useState } from 'react'
 import { Route } from 'react-router-dom'
 import { Box, Grid, CircularProgress } from '@material-ui/core'
 import { appCommonData } from '../../../constants'
-import {
-  fetchData,
-  filterPageData,
-  getPageDataItem,
-  handleSubmitPageData,
-} from '../../../helpers'
+import { getPageDataItem } from '../../../helpers'
 import { Header } from './Header'
 import { Table } from '../Table'
 import { FormPage } from '../../pages/FormPage'
 import { ErrorSnackbar } from '../Error'
 
-export const Page = ({ state, setState, sectionName }) => {
+export const Page = React.memo(({ pageData }) => {
+  const {
+    deleteRow,
+    updateRow,
+    insertRow,
+    fetchData,
+    clearFetchError,
+    data: state,
+    error,
+    pending,
+    sectionName,
+  } = pageData
   const { columns } = appCommonData.find((data) => data.name === sectionName)
   const [isEditMode, setEditMode] = useState(false)
-  const [pending, setPending] = useState(false)
-  const [error, setError] = useState(false)
-  const deleteRow = filterPageData(state, setState)
   const findRow = getPageDataItem(state)
-  const handleSubmitData = handleSubmitPageData(state, setState)
-  useEffect(fetchData(sectionName, [state, setState], setPending, setError, columns), [sectionName])
+  useEffect(() => {
+    if (!state.length) { fetchData(sectionName, columns) }
+  })
   useEffect(() => {
     localStorage.setItem(sectionName, JSON.stringify(state))
-  }, [state, sectionName])
+  })
   return (
     <Box
       component={Grid}
@@ -37,20 +41,22 @@ export const Page = ({ state, setState, sectionName }) => {
     >
       <Route exact path={`/${sectionName}`}>
         <Header sectionName={sectionName} />
-        <ErrorSnackbar error={error} setError={setError} />
+        <ErrorSnackbar error={error} clearFetchError={clearFetchError} />
         {pending ? <Box component={CircularProgress} mt={5} />
           : (
             <Table
               tableData={state}
               sectionName={sectionName}
               deleteRow={deleteRow}
+              updateRow={updateRow}
               setEditMode={setEditMode}
             />
           )}
       </Route>
       <Route path={`/${sectionName}/:id`}>
         <FormPage
-          handleSubmitData={handleSubmitData}
+          updateRow={updateRow}
+          insertRow={insertRow}
           sectionName={sectionName}
           isEditMode={isEditMode}
           findRow={findRow}
@@ -59,4 +65,4 @@ export const Page = ({ state, setState, sectionName }) => {
       </Route>
     </Box>
   )
-}
+})

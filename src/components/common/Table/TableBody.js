@@ -1,38 +1,46 @@
-import { IconButton, TableCell, TableRow } from '@material-ui/core'
+import {
+  IconButton,
+  TableCell,
+  TableRow,
+  Checkbox,
+} from '@material-ui/core'
 import shortId from 'shortid'
-import Mylink from '@material-ui/core/Link'
 import TBody from '@material-ui/core/TableBody'
-import { Link } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import React from 'react'
+import { Cell } from './TableCell'
 
 export const TableBody = (props) => {
   const {
     tableData,
     classes,
     deleteRow,
+    updateRow,
     sectionName,
     setEditMode,
   } = props
   const tableBody = tableData.map(
     (row) => (
       <TableRow key={row.id} className={classes.row}>
-        {Object.values(row).map(
-          (cell, index) => (
-            <TableCell key={shortId.generate()}>
-              {(index) ? cell
-                : (
-                  <Mylink
-                    component={Link}
-                    to={`/${sectionName}/${row.id}`}
-                    onClick={() => setEditMode(true)}
-                  >
-                    {cell}
-                  </Mylink>
-                )}
-            </TableCell>
+        {Object.entries(row).map(
+          ([name, cell]) => (
+            <Cell
+              key={shortId.generate()}
+              name={name}
+              sectionName={sectionName}
+              cell={cell}
+              row={row}
+              setEditMode={setEditMode}
+            />
           ),
         )}
+        <TableCell>
+          <Checkbox
+            checked={row.beloved}
+            color="primary"
+            onChange={() => updateRow(row.id, { ...row, beloved: !row.beloved })}
+          />
+        </TableCell>
         <TableCell>
           <IconButton size="small" onClick={() => { deleteRow(row.id) }}>
             <DeleteIcon />
