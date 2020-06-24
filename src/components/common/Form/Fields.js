@@ -3,6 +3,8 @@ import { TextValidator } from 'react-material-ui-form-validator'
 import { makeStyles } from '@material-ui/core/styles'
 import { capitalize } from '../../../helpers'
 
+const unnecessaryFields = ['edited', 'created', 'id', 'beloved']
+
 const useStyles = makeStyles((theme) => ({
   textField: {
     marginBottom: theme.spacing(2),
@@ -21,7 +23,7 @@ const getValidatorsData = (object, isErrorMessage) => Object.entries(object)
 
 export const Fields = ({ data, handleChange, columns }) => {
   const classes = useStyles()
-  const filteredData = data.filter((elem) => !['edited', 'created', 'id'].includes(elem[0]))
+  const filteredData = data.filter(([key]) => !unnecessaryFields.includes(key))
   return (
     filteredData.map(([key, value], index) => (
       <TextValidator

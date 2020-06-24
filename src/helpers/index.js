@@ -5,4 +5,3 @@ export const capitalize = R.replace(/^./, R.toUpper)
 export * from './validationHelpers'
 export * from './mainPageHelpers'
 export * from './formPageHelpers'
-export * from './hooks/index'

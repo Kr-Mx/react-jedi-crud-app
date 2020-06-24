@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const ErrorSnackbar = ({ error, setError }) => {
+export const ErrorSnackbar = ({ error, clearFetchError }) => {
   const classes = useStyles()
   return (
     <Snackbar
@@ -21,12 +21,12 @@ export const ErrorSnackbar = ({ error, setError }) => {
         horizontal: 'left',
       }}
       className={classes.wrapper}
-      open={!!error.message}
-      onClose={() => { setError(false) }}
+      open={!!error}
+      onClose={clearFetchError}
       autoHideDuration={6000}
       message={error.message}
       action={(
-        <IconButton size="small" color="inherit" onClick={() => { setError(false) }}>
+        <IconButton size="small" color="inherit" onClick={clearFetchError}>
           <CloseIcon fontSize="small" />
         </IconButton>
       )}

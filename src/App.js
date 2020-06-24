@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom'
 import { Navbar } from './components/common/Navbar'
 import { NotExistedPage } from './components/pages/NotExistedPage'
-import { People } from './components/pages/People'
-import { Planets } from './components/pages/Planets'
-import { Starships } from './components/pages/Starships'
+import People from './components/pages/People'
+import Planets from './components/pages/Planets'
+import Starships from './components/pages/Starships'
 
 export const App = () => (
   <Router>
